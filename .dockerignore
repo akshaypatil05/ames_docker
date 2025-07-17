@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+*.ipynb
+*.env
+.git
+*.DS_Store
+data/
+spot_results/
+pleiades_results/
