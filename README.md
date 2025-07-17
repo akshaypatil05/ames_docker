@@ -43,7 +43,7 @@ docker run --rm ^
 
 ---
 
-## 🔁 Step 1: Pull the Docker Image
+Pull the Docker Image
 
 In **PowerShell** or **WSL**, run:
 
