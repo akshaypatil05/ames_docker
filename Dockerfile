@@ -4,19 +4,21 @@ FROM continuumio/miniconda3
 # Set working directory
 WORKDIR /app
 
-# Create environment
-RUN apt-get update && apt-get install -y libgl1
+# Install system packages
+RUN apt-get update && apt-get install -y libgl1 && apt-get clean
 
-# Copy Conda environment file
+# Copy only environment + source code
 COPY asp_environment.yml .
+COPY src ./src
 
+# Create conda environment
 RUN conda env create -f asp_environment.yml
 
-# Ensure the environment is used for all RUN/CMD
+# Add environment to path
+ENV PATH /opt/conda/envs/asp/bin:$PATH
+
+# Shell will use the 'asp' environment
 SHELL ["conda", "run", "-n", "asp", "/bin/bash", "-c"]
 
-# Copy entire repo
-COPY . .
-
-# Set default command to use 'conda run' and allow override from CLI
+# Default command (script & config passed from outside)
 ENTRYPOINT ["conda", "run", "-n", "asp", "python"]
